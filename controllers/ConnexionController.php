@@ -39,11 +39,11 @@ class ConnexionController
       require "./connexion/connexionForm.php";
     }
   }
-  public function login()
+  public function login($array)
   {
-    require "./connexion/status.php";
-    var_dump($array);
-    die;
+    // require "./connexion/status.php";
+    // var_dump();
+    // die;
     $dao = new DAO();
     $sql1 = "SELECT  * FROM user where psuedo= ? and password = ?";
     $password = sha1($array['password']);
