@@ -39,7 +39,7 @@ $id_acteur = filter_input(INPUT_GET, "id_acteur", FILTER_SANITIZE_FULL_SPECIAL_C
     switch($_GET['action']){
         case "accueil" : $ctrlAccueil->pageAccueil($id); break;
         case "connexion" : $ctrlConnexion->connexionFormulaire($_POST); break;
-        case "login" : $ctrlConnexion->login(); break;
+        case "login" : $ctrlConnexion->login($_POST); break;
         case "ajoutInscriptionForm" : $ctrlConnexion->ajoutInscriptionForm($_POST); break;
         case "inscription" : $ctrlConnexion->inscription($_POST); break;
         case "logout" : $ctrlConnexion->logout($_SESSION); break;
