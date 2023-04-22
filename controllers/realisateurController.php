@@ -36,8 +36,8 @@ class RealisateurController{
 
     $sql1 = "INSERT INTO realisateur(nom_realisateur, prenom_realisateur ) values (:nom_realisateur, :prenom_realisateur )";
 
-    $nom= filter_var($array['nom_realisateur'], FILTER_SANITIZE_STRING);
-    $prenom= filter_var($array['prenom_realisateur'], FILTER_SANITIZE_STRING);
+    $nom= filter_var($array['nom_realisateur'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $prenom= filter_var($array['prenom_realisateur'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
     $ajouterrealisateur=  $dao->executerRequete($sql1, [':nom_realisateur'=>$nom, ':prenom_realisateur'=>$prenom]);
 
@@ -64,8 +64,8 @@ class RealisateurController{
 public function modifierRealisateur($array){
   $dao= new DAO();
   $sql= "UPDATE realisateur SET nom_realisateur = :nom_realisateur, prenom_realisateur = :prenom_realisateur  where id_real = :id_real";
-  $nom_realisateur = filter_var($array['nom_realisateur'], FILTER_SANITIZE_STRING);
-  $prenom_realisateur = filter_var($array['prenom_realisateur'], FILTER_SANITIZE_STRING);
+  $nom_realisateur = filter_var($array['nom_realisateur'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+  $prenom_realisateur = filter_var($array['prenom_realisateur'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
   $param= [':id_real'=>$array['id_real'], ':nom_realisateur'=>$array['nom_realisateur'],':prenom_realisateur'=>$array['prenom_realisateur']];
   $modifierrealisateur= $dao->executerRequete($sql,$param);
   header("Location: index.php?action=listRealisateurs ");

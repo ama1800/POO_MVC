@@ -1,4 +1,14 @@
 <?php
+
+use App\UserController;
+use App\AccueilController;
+use App\ConnexionController;
+use App\RealisateurController;
+use App\ActeurController;
+use App\GenreController;
+use App\FilmController;
+use App\RoleController;
+
 spl_autoload_register(function ($className) {
 
     $className = str_replace("App", "controllers", $className);
@@ -9,31 +19,29 @@ spl_autoload_register(function ($className) {
 });
 
 // à faire : rajouter des sanitize partout (y compris sur les array)
-
-$ctrlFilm = new App\FilmController();
-$ctrlActeur = new App\ActeurController();
-$ctrlRealisateur = new App\RealisateurController();
-$ctrlRole = new App\RoleController();
-$ctrlGenre = new App\GenreController();
-$ctrlAccueil = new App\AccueilController();
-$ctrlAffiches = new App\AccueilController();
-$ctrlConnexion = new App\ConnexionController();
-$ctrlUser = new App\UserController();
-
+$ctrlFilm = new FilmController();
+$ctrlActeur = new ActeurController();
+$ctrlRealisateur = new RealisateurController();
+$ctrlRole = new RoleController();
+$ctrlGenre = new GenreController();
+$ctrlAccueil = new AccueilController();
+$ctrlAffiches = new AccueilController();
+$ctrlConnexion = new ConnexionController();
+$ctrlUser = new UserController();
 
 if(isset($_GET['action'])){
     
-$id = filter_input(INPUT_GET, "id", FILTER_SANITIZE_STRING); // car possible d'injecter dans l'URL
-$id_role = filter_input(INPUT_GET, "id_role", FILTER_SANITIZE_STRING);
-$id_genre = filter_input(INPUT_GET, "id_genre", FILTER_SANITIZE_STRING);
-$id_acteur = filter_input(INPUT_GET, "id_acteur", FILTER_SANITIZE_STRING); 
+$id = filter_input(INPUT_GET, "id", FILTER_SANITIZE_FULL_SPECIAL_CHARS); // car possible d'injecter dans l'URL
+$id_role = filter_input(INPUT_GET, "id_role", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$id_genre = filter_input(INPUT_GET, "id_genre", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$id_acteur = filter_input(INPUT_GET, "id_acteur", FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
 
     switch($_GET['action']){
         case "accueil" : $ctrlAccueil->pageAccueil($id); break;
         case "connexion" : $ctrlConnexion->connexionFormulaire($_POST); break;
-        case "login" : $ctrlConnexion->login($_SESSION); break;
+        case "login" : $ctrlConnexion->login(); break;
         case "ajoutInscriptionForm" : $ctrlConnexion->ajoutInscriptionForm($_POST); break;
-        case "inscription" : $ctrlConnexion->inscription($_SESSION); break;
+        case "inscription" : $ctrlConnexion->inscription($_POST); break;
         case "logout" : $ctrlConnexion->logout($_SESSION); break;
         case "listActeurs" : $ctrlActeur->findAll(); break;
         case "listFilms" : $ctrlFilm->findAll(); break;

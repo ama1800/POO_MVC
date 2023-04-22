@@ -37,10 +37,10 @@ class ActeurController{
 
     $sql1 = "INSERT INTO acteur(nom_acteur, prenom_acteur ,sexe, date_naissance) values (:nom_acteur, :prenom_acteur ,:sexe, :date_naissance)";
 
-    $nom= filter_var($array['nom_acteur'], FILTER_SANITIZE_STRING);
-    $prenom= filter_var($array['prenom_acteur'], FILTER_SANITIZE_STRING);
-    $sexe= filter_var($array['sexe'], FILTER_SANITIZE_STRING);
-    $date_naissance= filter_var($array['date_naissance'], FILTER_SANITIZE_STRING);
+    $nom= filter_var($array['nom_acteur'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $prenom= filter_var($array['prenom_acteur'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $sexe= filter_var($array['sexe'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $date_naissance= filter_var($array['date_naissance'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
     $ajouterActeur=  $dao->executerRequete($sql1, [':nom_acteur'=>$nom, ':prenom_acteur'=>$prenom ,':sexe'=>$sexe, ':date_naissance'=>$date_naissance]);
     header("Location: index.php?action=listActeurs ");

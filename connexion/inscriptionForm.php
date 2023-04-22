@@ -25,14 +25,14 @@ ob_start();
                 }
             ?>
         <label for="password">MOT DE PASSE (minimum 8 charachters)</label><br>
-        <input type="password" name="password" class="form-control" id="password1 " placeholder="mot de passe" ><br>
+        <input type="password" name="password1" class="form-control" id="password1 " placeholder="mot de passe" ><br>
             <?php
                 if(isset($_SESSION['pass'])){
                 echo $_SESSION['pass'];
                 }
             ?>
         <label for="password">MOT DE PASSE (minimum 8 charachters)</label><br>
-        <input type="password" name="password" class="form-control" id="password2 " placeholder="confirmez le mot de passe" ><br>
+        <input type="password" name="password2" class="form-control" id="password2 " placeholder="confirmez le mot de passe" ><br>
         <label for="email">EMAIL</label><br>
         <input type="email" name="email1" class="form-control" id="email " placeholder="Saisissez Votre Email" ><br>
         <?php

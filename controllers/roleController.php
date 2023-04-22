@@ -24,7 +24,7 @@ class RoleController{
     
         $sql1 = "INSERT INTO role(nom_role) values (:nom_role)";
     
-        $nom_role= filter_var($array['nom_role'], FILTER_SANITIZE_STRING);
+        $nom_role= filter_var($array['nom_role'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     
         $ajouterActeur=  $dao->executerRequete($sql1, [':nom_role'=>$nom_role]);
         header("Location: index.php?action=listRoles ");
@@ -58,7 +58,7 @@ class RoleController{
       public function modifierrole($array){
         $dao= new DAO();
         $sql= "UPDATE role SET nom_role = :nom_role where id_role = :id_role";
-        $nom_role= filter_var($array['nom_role'], FILTER_SANITIZE_STRING);
+        $nom_role= filter_var($array['nom_role'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $param= [':nom_role'=>$array['nom_role'],':id_role'=>$array['id_role']];
         $modifierrole= $dao->executerRequete($sql,$param);
         header("Location: index.php?action=listRoles ");

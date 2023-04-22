@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App;
 
 require_once 'controllers/DAO.php';
@@ -37,17 +36,17 @@ class FilmController{
   public function ajouterFilm($array){
     $dao= new DAO();
     $sql1 = "INSERT INTO film(titre,annee ,note,synopsis,affiche, id_real, duree) values (:titre,:annee ,:note,:synopsis,:affiche,:id_real, :duree)" ;
-    $titre= filter_var($array['titre'], FILTER_SANITIZE_STRING);
-    $annee= filter_var($array['annee'], FILTER_SANITIZE_STRING);
-    $note= filter_var($array['note'], FILTER_SANITIZE_STRING);
-    $synopsis= filter_var($array['synopsis'], FILTER_SANITIZE_STRING);
-    $affiche= filter_var($array['affiche'], FILTER_SANITIZE_STRING);
-    $id_real= filter_var($array['realisateur'], FILTER_SANITIZE_STRING);
-    $duree= filter_var($array['duree'], FILTER_SANITIZE_STRING);
+    $titre= filter_var($array['titre'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $annee= filter_var($array['annee'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $note= filter_var($array['note'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $synopsis= filter_var($array['synopsis'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $affiche= filter_var($array['affiche'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $id_real= filter_var($array['realisateur'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $duree= filter_var($array['duree'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $ajouterFilm=  $dao->executerRequete($sql1, [':titre'=>$titre, ':annee'=>$annee, ':note'=>$note, ':synopsis'=>$synopsis, ':affiche'=>$affiche, ':duree'=>$duree, ':id_real'=>$id_real]);
     $dernierID= $dao->getBDD()->lastInsertId();
     $sql2= "INSERT INTO appartient(id_genre, id_film) value (:idGenre , :idFilm)";
-    $appartient= filter_var_array($array['nom_genre'], FILTER_SANITIZE_STRING);
+    $appartient= filter_var_array($array['nom_genre'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     foreach($appartient as $genreActuel){
      $dao->executerRequete($sql2, [':idGenre' => $genreActuel ,':idFilm'=>$dernierID]);
     }
@@ -94,14 +93,14 @@ class FilmController{
     $dao= new DAO();
     $sql= "UPDATE film SET titre = :titre, annee = :annee, note = :note, synopsis= :synopsis, affiche= :affiche, id_real= :id_real, duree = :duree  where id_film = :id_film";
 
-    $titre = filter_var($array['titre'], FILTER_SANITIZE_STRING);
-    $annee = filter_var($array['annee'], FILTER_SANITIZE_STRING);
-    $sexe = filter_var($array['sexe'], FILTER_SANITIZE_STRING);
-    $note = filter_var($array['note'], FILTER_SANITIZE_STRING);
-    $note = filter_var($array['synopsis'], FILTER_SANITIZE_STRING);
-    $note = filter_var($array['affiche'], FILTER_SANITIZE_STRING);
-    $note = filter_var($array['id_real'], FILTER_SANITIZE_STRING);
-    $note = filter_var($array['duree'], FILTER_SANITIZE_STRING);
+    $titre = filter_var($array['titre'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $annee = filter_var($array['annee'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $sexe = filter_var($array['sexe'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $note = filter_var($array['note'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $note = filter_var($array['synopsis'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $note = filter_var($array['affiche'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $note = filter_var($array['id_real'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $note = filter_var($array['duree'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
     $param= [':id_film'=>$array['id_film'], ':titre'=>$array['titre'],':annee'=>$array['annee'],':sexe'=>$array['sexe'],':note'=>$array['note']];
     $modifierfilm= $dao->executerRequete($sql,$param);

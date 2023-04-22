@@ -25,7 +25,7 @@ class GenreController{
     
         $sql1 = "INSERT INTO genre(nom_genre) values (:nom_genre)";
     
-        $nom_genre= filter_var($array['nom_genre'], FILTER_SANITIZE_STRING);
+        $nom_genre= filter_var($array['nom_genre'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     
         $ajouterActeur=  $dao->executerRequete($sql1, [':nom_genre'=>$nom_genre]);
         header("Location: index.php?action=listGenres ");
@@ -59,7 +59,7 @@ class GenreController{
     public function modifierGenre($array){
       $dao= new DAO();
       $sql= "UPDATE genre SET nom_genre = :nom_genre where id_genre = :id_genre";
-      $nom_genre= filter_var($array['nom_genre'], FILTER_SANITIZE_STRING);
+      $nom_genre= filter_var($array['nom_genre'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
       $param= [':nom_genre'=>$array['nom_genre'],':id_genre'=>$array['id_genre']];
       $modifierGenre= $dao->executerRequete($sql,$param);
       header("Location: index.php?action=listGenres ");
